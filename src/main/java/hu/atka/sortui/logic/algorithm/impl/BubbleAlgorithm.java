@@ -26,7 +26,7 @@ public class BubbleAlgorithm extends Algorithm {
 
 	@Override
 	public String getName() {
-		return "Selection algorithm";
+		return "Bubble algorithm";
 	}
 
 	@Override
