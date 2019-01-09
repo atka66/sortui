@@ -29,7 +29,7 @@ public class SelectionAlgorithm extends Algorithm {
 	}
 
 	@Override
-	protected void stepAlgorithm() throws InvalidAlgorithmStateException {
+	protected void stepAlgorithm() {
 		switch (currentState) {
 			case 0:
 				isTerminal = false;

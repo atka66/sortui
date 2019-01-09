@@ -3,7 +3,6 @@ package hu.atka.sortui.logic.algorithm;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import hu.atka.sortui.logic.algorithm.exception.InvalidAlgorithmStateException;
 
 public abstract class Algorithm {
 
@@ -45,7 +44,7 @@ public abstract class Algorithm {
 		} while (!isTerminal);
 	}
 
-	protected abstract void stepAlgorithm() throws InvalidAlgorithmStateException;
+	protected abstract void stepAlgorithm();
 
 	private Integer[] randomArray(int size) {
 		List<Integer> arrayAsList = new ArrayList<>();
