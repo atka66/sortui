@@ -1,8 +1,5 @@
 package hu.atka.sortui.view.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import hu.atka.sortui.logic.algorithm.Algorithm;
@@ -26,8 +23,6 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class MainController implements Initializable {
-
-	private static Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	@FXML
 	private BorderPane borderPane;
@@ -91,7 +86,6 @@ public class MainController implements Initializable {
 				timeline.play();
 			}
 		} catch (InvalidAlgorithmException e) {
-			logger.error("Exception during starting animation: " + e.getMessage());
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText(null);

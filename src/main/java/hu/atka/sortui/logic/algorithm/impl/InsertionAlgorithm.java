@@ -1,6 +1,7 @@
 package hu.atka.sortui.logic.algorithm.impl;
 
 import hu.atka.sortui.logic.algorithm.Algorithm;
+import hu.atka.sortui.logic.algorithm.exception.InvalidAlgorithmStateException;
 
 // PSEUDO-CODE:
 // 0-1. 1. FOR i <- 2 TO n DO
@@ -28,7 +29,7 @@ public class InsertionAlgorithm extends Algorithm {
 	}
 
 	@Override
-	protected void stepAlgorithm() {
+	protected void stepAlgorithm() throws InvalidAlgorithmStateException {
 		switch (currentState) {
 			case 0:
 				isTerminal = false;
@@ -69,7 +70,7 @@ public class InsertionAlgorithm extends Algorithm {
 			default:
 				isTerminal = true;
 				done = true;
-				throw new RuntimeException("Oops, something happened during sorting!");
+				throw new InvalidAlgorithmStateException();
 		}
 	}
 }

@@ -7,6 +7,10 @@ import hu.atka.sortui.logic.algorithm.impl.SelectionAlgorithm;
 
 public class AlgorithmFactory {
 
+	private AlgorithmFactory() {
+		
+	}
+
 	public static Algorithm createAlgorithm(String algorithm, Integer size) throws InvalidAlgorithmException {
 		switch (algorithm) {
 			case "selection":

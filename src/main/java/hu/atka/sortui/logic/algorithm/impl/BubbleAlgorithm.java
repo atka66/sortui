@@ -1,6 +1,7 @@
 package hu.atka.sortui.logic.algorithm.impl;
 
 import hu.atka.sortui.logic.algorithm.Algorithm;
+import hu.atka.sortui.logic.algorithm.exception.InvalidAlgorithmStateException;
 
 // PSEUDO-CODE:
 // 0.   1. i <- n - 1
@@ -30,7 +31,7 @@ public class BubbleAlgorithm extends Algorithm {
 	}
 
 	@Override
-	protected void stepAlgorithm() {
+	protected void stepAlgorithm() throws InvalidAlgorithmStateException {
 		switch (currentState) {
 			case 0:
 				isTerminal = false;
@@ -89,7 +90,7 @@ public class BubbleAlgorithm extends Algorithm {
 			default:
 				isTerminal = true;
 				done = true;
-				throw new RuntimeException("Oops, something happened during sorting!");
+				throw new InvalidAlgorithmStateException();
 		}
 	}
 }
