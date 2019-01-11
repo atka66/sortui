@@ -20,6 +20,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class MainController implements Initializable {
@@ -62,6 +63,7 @@ public class MainController implements Initializable {
 		spinnerSpeed.setValueFactory(speedValueFactory);
 
 		gcCanvas = canvas.getGraphicsContext2D();
+		gcCanvas.setFont(Font.font(Settings.CANVAS_TEXT_SIZE));
 
 		clear();
 	}
@@ -98,7 +100,7 @@ public class MainController implements Initializable {
 		clear();
 
 		renderArray(algorithm);
-		renderText(algorithm);
+		renderInfo(algorithm);
 	}
 
 	private void renderArray(Algorithm algorithm) {
@@ -106,45 +108,46 @@ public class MainController implements Initializable {
 		double heightRatio = (double) Settings.CANVAS_HEIGHT / array.length;
 		double widthRatio = (double) Settings.CANVAS_WIDTH / array.length;
 		for (int i = 0; i < array.length; i++) {
-			if (algorithm.getTouchedIndexes().contains(i)) {
-				gcCanvas.setStroke(Settings.CANVAS_RECT_TOUCHED_STROKE_COLOR);
-				gcCanvas.setFill(Settings.CANVAS_RECT_TOUCHED_FILL_COLOR);
+			if (algorithm.getSwappedIndexes().contains(i)) {
+				gcCanvas.setStroke(Settings.CANVAS_RECT_SWAPPED_STROKE_COLOR);
+				gcCanvas.setFill(Settings.CANVAS_RECT_SWAPPED_FILL_COLOR);
 			} else {
-				gcCanvas.setStroke(Settings.CANVAS_RECT_DEFAULT_STROKE_COLOR);
-				gcCanvas.setFill(Settings.CANVAS_RECT_DEFAULT_FILL_COLOR);
+				if (algorithm.getTouchedIndexes().contains(i)) {
+					gcCanvas.setStroke(Settings.CANVAS_RECT_TOUCHED_STROKE_COLOR);
+					gcCanvas.setFill(Settings.CANVAS_RECT_TOUCHED_FILL_COLOR);
+				} else {
+					gcCanvas.setStroke(Settings.CANVAS_RECT_DEFAULT_STROKE_COLOR);
+					gcCanvas.setFill(Settings.CANVAS_RECT_DEFAULT_FILL_COLOR);
+				}
 			}
 			gcCanvas.fillRect(
-				i * widthRatio + Settings.CANVAS_RECT_PADDING,
-				Settings.CANVAS_HEIGHT - (heightRatio * array[i]) + Settings.CANVAS_RECT_PADDING,
-				widthRatio - (Settings.CANVAS_RECT_PADDING * 2),
-				(heightRatio * array[i]) - (Settings.CANVAS_RECT_PADDING * 2)
+				i * widthRatio + Settings.CANVAS_RECT_GAP,
+				Settings.CANVAS_HEIGHT - (heightRatio * array[i]) + Settings.CANVAS_RECT_GAP,
+				widthRatio - (Settings.CANVAS_RECT_GAP * 2),
+				(heightRatio * array[i]) - (Settings.CANVAS_RECT_GAP * 2)
 			);
 			gcCanvas.fillRect(
-				i * widthRatio + Settings.CANVAS_RECT_PADDING,
-				Settings.CANVAS_HEIGHT - (heightRatio * array[i]) + Settings.CANVAS_RECT_PADDING,
-				widthRatio - (Settings.CANVAS_RECT_PADDING * 2),
-				(heightRatio * array[i]) - (Settings.CANVAS_RECT_PADDING * 2)
+				i * widthRatio + Settings.CANVAS_RECT_GAP,
+				Settings.CANVAS_HEIGHT - (heightRatio * array[i]) + Settings.CANVAS_RECT_GAP,
+				widthRatio - (Settings.CANVAS_RECT_GAP * 2),
+				(heightRatio * array[i]) - (Settings.CANVAS_RECT_GAP * 2)
 			);
 		}
 	}
 
-	private void renderText(Algorithm algorithm) {
-		gcCanvas.setStroke(Settings.CANVAS_TEXT_COLOR);
-		gcCanvas.strokeText(
-			algorithm.getName(),
-			Settings.CANVAS_TEXT_PADDING,
-			Settings.CANVAS_TEXT_PADDING
-		);
-		gcCanvas.strokeText(
-			"Array length: " + algorithm.getArray().length,
-			Settings.CANVAS_TEXT_PADDING,
-			Settings.CANVAS_TEXT_PADDING * 2
-		);
-		gcCanvas.strokeText(
-			(algorithm.isDone() ? "DONE" : "IN PROGRESS"),
-			Settings.CANVAS_TEXT_PADDING,
-			Settings.CANVAS_TEXT_PADDING * 3
-		);
+	private void renderInfo(Algorithm algorithm) {
+		renderText(algorithm.getName(), 1);
+		renderText("Array length: " + algorithm.getArray().length, 2);
+		renderText("Element accesses: " + algorithm.getAllTouches(), 3);
+		renderText("Element swaps: " + algorithm.getAllSwaps(), 4);
+		renderText(algorithm.isDone() ? "DONE" : "IN PROGRESS", 5);
+	}
+
+	private void renderText(String text, int row) {
+		gcCanvas.setStroke(Settings.CANVAS_TEXT_STROKE_COLOR);
+		gcCanvas.setFill(Settings.CANVAS_TEXT_FILL_COLOR);
+		gcCanvas.strokeText(text, Settings.CANVAS_TEXT_PADDING, Settings.CANVAS_TEXT_PADDING * row);
+		gcCanvas.fillText(text, Settings.CANVAS_TEXT_PADDING, Settings.CANVAS_TEXT_PADDING * row);
 	}
 
 	private void clear() {

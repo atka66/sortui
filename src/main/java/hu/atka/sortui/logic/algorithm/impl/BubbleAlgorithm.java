@@ -53,8 +53,11 @@ public class BubbleAlgorithm extends Algorithm {
 				currentState++;
 				break;
 			case 3:
-				isTerminal = false;
+				isTerminal = true;
 				currentLoopVariants[1]++;
+				this.touchedIndexes.add(currentLoopVariants[1]);
+				this.touchedIndexes.add(currentLoopVariants[1] + 1);
+				this.allTouches++;
 				if (currentLoopVariants[1] < currentLoopVariants[0]) {
 					if (array[currentLoopVariants[1]] > array[currentLoopVariants[1] + 1]) {
 						currentState++;
@@ -69,8 +72,9 @@ public class BubbleAlgorithm extends Algorithm {
 				array[currentLoopVariants[1]] = array[currentLoopVariants[1] + 1];
 				array[currentLoopVariants[1] + 1] = tmp;
 
-				this.touchedIndexes.add(currentLoopVariants[1]);
-				this.touchedIndexes.add(currentLoopVariants[1] + 1);
+				this.swappedIndexes.add(currentLoopVariants[1]);
+				this.swappedIndexes.add(currentLoopVariants[1] + 1);
+				this.allSwaps++;
 
 				lastSwap = currentLoopVariants[1];
 

@@ -8,7 +8,11 @@ public abstract class Algorithm {
 
 	protected boolean done;
 	protected Integer[] array;
+
 	protected List<Integer> touchedIndexes;
+	protected List<Integer> swappedIndexes;
+	protected int allTouches;
+	protected int allSwaps;
 
 	protected int[] currentLoopVariants;
 	protected int currentState;
@@ -18,6 +22,10 @@ public abstract class Algorithm {
 	public Algorithm(Integer size) {
 		this.done = false;
 		this.array = randomArray(size);
+		this.touchedIndexes = new ArrayList<>();
+		this.swappedIndexes = new ArrayList<>();
+		this.allTouches = 0;
+		this.allSwaps = 0;
 		this.currentLoopVariants = new int[0];
 		this.currentState = 0;
 		this.isTerminal = false;
@@ -37,8 +45,21 @@ public abstract class Algorithm {
 		return touchedIndexes;
 	}
 
+	public final List<Integer> getSwappedIndexes() {
+		return swappedIndexes;
+	}
+
+	public final int getAllTouches() {
+		return allTouches;
+	}
+
+	public final int getAllSwaps() {
+		return allSwaps;
+	}
+
 	public final void tick() {
 		this.touchedIndexes = new ArrayList<>();
+		this.swappedIndexes = new ArrayList<>();
 		do {
 			this.stepAlgorithm();
 		} while (!isTerminal);

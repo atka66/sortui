@@ -52,9 +52,12 @@ public class SelectionAlgorithm extends Algorithm {
 				currentState++;
 				break;
 			case 3:
-				isTerminal = false;
+				isTerminal = true;
 				currentLoopVariants[1]++;
 				if (currentLoopVariants[1] < array.length) {
+					this.touchedIndexes.add(currentLoopVariants[1]);
+					this.touchedIndexes.add(min);
+					allTouches++;
 					if (array[currentLoopVariants[1]] < array[min]) {
 						min = currentLoopVariants[1];
 					}
@@ -68,8 +71,9 @@ public class SelectionAlgorithm extends Algorithm {
 				array[currentLoopVariants[0]] = array[min];
 				array[min] = tmp;
 
-				this.touchedIndexes.add(currentLoopVariants[0]);
-				this.touchedIndexes.add(min);
+				this.swappedIndexes.add(currentLoopVariants[0]);
+				this.swappedIndexes.add(min);
+				this.allSwaps++;
 
 				currentState = 1;
 				break;

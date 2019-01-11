@@ -40,6 +40,7 @@ public class InsertionAlgorithm extends Algorithm {
 				isTerminal = false;
 				currentLoopVariants[0]++;
 				if (currentLoopVariants[0] < array.length) {
+					this.touchedIndexes.add(currentLoopVariants[0]);
 					key = array[currentLoopVariants[0]];
 					currentLoopVariants[1] = currentLoopVariants[0] - 1;
 					currentState++;
@@ -48,10 +49,12 @@ public class InsertionAlgorithm extends Algorithm {
 				}
 				break;
 			case 2:
-				isTerminal = false;
+				isTerminal = true;
+				this.touchedIndexes.add(currentLoopVariants[1]);
+				this.allTouches++;
 				if (currentLoopVariants[1] > -1 && array[currentLoopVariants[1]] > key) {
 					array[currentLoopVariants[1] + 1] = array[currentLoopVariants[1]];
-					this.touchedIndexes.add(currentLoopVariants[1] + 1);
+					this.swappedIndexes.add(currentLoopVariants[1] + 1);
 					currentLoopVariants[1]--;
 				} else {
 					currentState++;
@@ -60,7 +63,8 @@ public class InsertionAlgorithm extends Algorithm {
 			case 3:
 				isTerminal = true;
 				array[currentLoopVariants[1] + 1] = key;
-				this.touchedIndexes.add(currentLoopVariants[1] + 1);
+				this.swappedIndexes.add(currentLoopVariants[1] + 1);
+				this.allSwaps++;
 				currentState = 1;
 				break;
 			case -1:
