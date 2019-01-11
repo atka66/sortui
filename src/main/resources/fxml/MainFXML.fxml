@@ -37,6 +37,7 @@
                 <RadioButton toggleGroup="$toggleGroupSort" userData="selection" text="Selection sort" selected="true"/>
                 <RadioButton toggleGroup="$toggleGroupSort" userData="insertion" text="Insertion sort"/>
                 <RadioButton toggleGroup="$toggleGroupSort" userData="bubble" text="Bubble sort"/>
+                <RadioButton toggleGroup="$toggleGroupSort" userData="bogo" text="Bogosort"/>
             </VBox>
             <Button onAction="#handleButtonStartClick" text="Start animation"/>
         </HBox>
